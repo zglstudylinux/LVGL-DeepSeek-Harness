@@ -12,8 +12,14 @@
 /* 鼠标光标图标（由 tools/img_conv 从 PNG 生成） */
 LV_IMAGE_DECLARE(mouse_cursor_icon);
 
-#define LVGL_HOR_RES 320
-#define LVGL_VER_RES 480
+/* 模拟显示分辨率由 CMake 传入（LVGL_SIM_HOR_RES / LVGL_SIM_VER_RES，默认 480×640）。
+ * 通过 ports/pc_sdl/CMakeLists.txt 的 target_compile_definitions 注入。 */
+#ifndef LVGL_SIM_HOR_RES
+#define LVGL_SIM_HOR_RES 480
+#endif
+#ifndef LVGL_SIM_VER_RES
+#define LVGL_SIM_VER_RES 640
+#endif
 
 static void port_init_impl(void)
 {
@@ -21,7 +27,7 @@ static void port_init_impl(void)
     lv_group_set_default(lv_group_create());
 
     /* 显示：创建 SDL 窗口并设为默认显示 */
-    lv_display_t * disp = lv_sdl_window_create(LVGL_HOR_RES, LVGL_VER_RES);
+    lv_display_t * disp = lv_sdl_window_create(LVGL_SIM_HOR_RES, LVGL_SIM_VER_RES);
     lv_display_set_default(disp);
 
     /* 鼠标 + 光标图标 */

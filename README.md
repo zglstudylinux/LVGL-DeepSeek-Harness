@@ -19,6 +19,9 @@
 
 # 构建并运行最小四层模板
 .\build.ps1 -App hello_world -Run
+
+# 构建并运行竖屏 480×640 蓝牙音箱界面
+.\build.ps1 -App bt_speaker -Run
 ```
 
 Linux / macOS 直接用 CMake：
@@ -35,7 +38,8 @@ cmake --build build -j
 LVGL-DeepSeek-Harness/
 ├── apps/                  # 每个 UI 应用一个自包含目录（各含 lv_conf.h）
 │   ├── demo_widgets/      # 官方控件示例（验证环境）
-│   └── hello_world/       # 最小四层模板（新建应用请复制它）
+│   ├── hello_world/       # 最小四层模板（新建应用请复制它）
+│   └── bt_speaker/        # 竖屏 480×640 蓝牙音箱「正在播放」界面（真实业务示例）
 ├── ports/                 # 每个目标平台一个目录（实现 shared/port/port.h）
 │   ├── pc_sdl/            # ★ PC 模拟器（SDL2，开发主战场）
 │   ├── linux_fb/          # Linux framebuffer 模板

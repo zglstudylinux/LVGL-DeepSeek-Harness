@@ -6,9 +6,18 @@
 
 find_package(SDL2 REQUIRED)
 
+# 模拟显示分辨率（竖屏 480×640 为当前项目默认；其他应用可 -D 覆盖）
+set(LVGL_SIM_HOR_RES 480 CACHE STRING "Simulated display horizontal resolution")
+set(LVGL_SIM_VER_RES 640 CACHE STRING "Simulated display vertical resolution")
+
 add_library(port STATIC
     src/port.c
     src/mouse_cursor_icon.c
+)
+
+target_compile_definitions(port PUBLIC
+    LVGL_SIM_HOR_RES=${LVGL_SIM_HOR_RES}
+    LVGL_SIM_VER_RES=${LVGL_SIM_VER_RES}
 )
 
 target_include_directories(port PUBLIC
