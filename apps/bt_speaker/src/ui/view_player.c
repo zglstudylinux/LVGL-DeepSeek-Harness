@@ -29,6 +29,7 @@ static const lv_image_dsc_t * s_covers[3] = {
 static view_player_events_t s_ev;
 static bool s_refreshing = false;   /* 程序化刷新时抑制回调，避免回环 */
 
+static lv_obj_t * s_screen;
 static lv_obj_t * s_bt_label;
 static lv_obj_t * s_time_label;
 static lv_obj_t * s_battery_label;
@@ -66,10 +67,10 @@ static void next_cb(lv_event_t * e)
     if(s_ev.on_next) s_ev.on_next();
 }
 
-static void bt_cb(lv_event_t * e)
+static void bt_open_cb(lv_event_t * e)
 {
     (void)e;
-    if(s_ev.on_bt_toggle) s_ev.on_bt_toggle();
+    if(s_ev.on_bt_open) s_ev.on_bt_open();
 }
 
 static void volume_cb(lv_event_t * e)
@@ -128,15 +129,22 @@ void view_player_init(const view_player_events_t * ev)
                           lv_palette_main(LV_PALETTE_BLUE_GREY),
                           true, LV_FONT_DEFAULT);
 
-    lv_obj_t * scr = lv_screen_active();
+    s_screen = lv_screen_active();
+    lv_obj_t * scr = s_screen;
     lv_obj_set_style_bg_color(scr, lv_color_hex(COLOR_BG), 0);
     lv_obj_set_style_bg_opa(scr, LV_OPA_COVER, 0);
 
     /* ---- 状态栏 ---- */
     s_bt_label = lv_label_create(scr);
-    lv_label_set_text(s_bt_label, LV_SYMBOL_BLUETOOTH " 已连接");
+    lv_label_set_text(s_bt_label, LV_SYMBOL_BLUETOOTH " Connected");
     lv_obj_set_style_text_color(s_bt_label, lv_color_hex(COLOR_ACCENT), 0);
-    lv_obj_set_pos(s_bt_label, 16, 12);
+    lv_obj_set_style_bg_color(s_bt_label, lv_color_hex(COLOR_CARD), 0);
+    lv_obj_set_style_bg_opa(s_bt_label, LV_OPA_COVER, 0);
+    lv_obj_set_style_pad_all(s_bt_label, 6, 0);
+    lv_obj_set_style_radius(s_bt_label, 12, 0);
+    lv_obj_set_pos(s_bt_label, 16, 8);
+    lv_obj_add_flag(s_bt_label, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_add_event_cb(s_bt_label, bt_open_cb, LV_EVENT_CLICKED, NULL);
 
     s_time_label = lv_label_create(scr);
     lv_label_set_text(s_time_label, "00:00");
@@ -282,13 +290,18 @@ void view_player_set_volume(uint8_t vol)
 void view_player_set_bt_connected(bool connected)
 {
     if(connected) {
-        lv_label_set_text(s_bt_label, LV_SYMBOL_BLUETOOTH " 已连接");
+        lv_label_set_text(s_bt_label, LV_SYMBOL_BLUETOOTH " Connected");
         lv_obj_set_style_text_color(s_bt_label, lv_color_hex(COLOR_ACCENT), 0);
     }
     else {
-        lv_label_set_text(s_bt_label, LV_SYMBOL_BLUETOOTH " 未连接");
+        lv_label_set_text(s_bt_label, LV_SYMBOL_BLUETOOTH " Disconnected");
         lv_obj_set_style_text_color(s_bt_label, lv_color_hex(COLOR_TEXT_DIM), 0);
     }
+}
+
+void view_player_show(void)
+{
+    lv_scr_load(s_screen);
 }
 
 void view_player_set_battery(uint8_t pct)

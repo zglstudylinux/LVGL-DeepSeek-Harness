@@ -1,6 +1,6 @@
 /**
  * @file main.c
- * @brief bt_speaker 应用入口 —— 竖屏 480×640 蓝牙音箱「正在播放」界面。
+ * @brief bt_speaker 应用入口 —— 竖屏 480×640 蓝牙音箱（「正在播放」+「蓝牙设备列表」双屏）。
  */
 #include "lvgl/lvgl.h"
 #include "port/port.h"

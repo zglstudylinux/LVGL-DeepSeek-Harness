@@ -13,11 +13,12 @@ typedef struct {
     void (*on_prev)(void);
     void (*on_next)(void);
     void (*on_volume_changed)(uint8_t vol);   /* 0..100 */
-    void (*on_bt_toggle)(void);
+    void (*on_bt_open)(void);                  /* 点击蓝牙图标打开设备列表 */
     void (*on_seek)(uint32_t ms);             /* 拖动进度条 */
 } view_player_events_t;
 
 void view_player_init(const view_player_events_t * ev);
+void view_player_show(void);                   /* 切换到「正在播放」屏 */
 
 void view_player_set_cover(uint8_t index);                 /* 0..2 */
 void view_player_set_track(const char * title, const char * artist);
