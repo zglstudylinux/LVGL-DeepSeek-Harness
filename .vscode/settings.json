@@ -1,0 +1,20 @@
+{
+  "cmake.buildDirectory": "${workspaceFolder}/build",
+  "cmake.configureOnOpen": false,
+  "cmake.configureArgs": [
+    "-DAPP=demo_widgets",
+    "-DPORT=pc_sdl",
+    "-DCMAKE_BUILD_TYPE=Debug"
+  ],
+  "C_Cpp.default.includePath": [
+    "${workspaceFolder}/lvgl/include",
+    "${workspaceFolder}/lvgl",
+    "${workspaceFolder}/shared",
+    "${workspaceFolder}/ports/pc_sdl",
+    "${workspaceFolder}/apps/demo_widgets/src"
+  ],
+  "files.associations": {
+    "*.h": "c",
+    "lv_conf.h": "c"
+  }
+}

@@ -1,0 +1,27 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build-pc-sdl:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app: [demo_widgets, hello_world]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake gcc g++ libsdl2-dev python3 pkg-config
+
+      - name: Configure (${{ matrix.app }})
+        run: cmake -B build -DAPP=${{ matrix.app }} -DPORT=pc_sdl -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build (${{ matrix.app }})
+        run: cmake --build build -j$(nproc)

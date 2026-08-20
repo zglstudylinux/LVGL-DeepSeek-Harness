@@ -1,0 +1,19 @@
+# 构建产物
+/build/
+/bin/
+
+# LVGL FetchContent 依赖缓存
+/.deps/
+
+# 编译中间文件
+*.o
+*.obj
+*.a
+*.lib
+
+# 编辑器本地缓存（保留 .vscode/ 分享推荐配置）
+*.code-workspace.local
+
+# 系统噪声
+Thumbs.db
+.DS_Store
