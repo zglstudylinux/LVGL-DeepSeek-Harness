@@ -18,6 +18,8 @@ build/
 .vs/
 .config*
 config.h
+# ThorVG 内部构建需要这个由 LVGL 定制的 config.h（CMake 不自动生成，必须入库）
+!src/libs/thorvg/config.h
 defconfig
 env/*
 docs-venv
