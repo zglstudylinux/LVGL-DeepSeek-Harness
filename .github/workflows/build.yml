@@ -25,3 +25,10 @@ jobs:
 
       - name: Build (${{ matrix.app }})
         run: cmake --build build -j$(nproc)
+
+      - name: Upload artifact (${{ matrix.app }})
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.app }}-linux-x64
+          path: bin/${{ matrix.app }}
+          if-no-files-found: error
