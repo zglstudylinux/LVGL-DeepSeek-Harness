@@ -90,6 +90,10 @@ cmake -B build -DAPP=<应用> -DPORT=<平台>
 | [docs/03-移植指南-单片机.md](docs/03-移植指南-单片机.md) | MCU（Keil/IAR/CubeIDE）移植 |
 | [docs/04-移植指南-Linux.md](docs/04-移植指南-Linux.md) | Linux 板卡移植 |
 | [docs/05-LVGL版本升级.md](docs/05-LVGL版本升级.md) | LVGL 升级与多版本管理 |
+| [docs/06-应用文档规范.md](docs/06-应用文档规范.md) | 每个应用 `README.md` 的统一模板（Mermaid 架构/流程图） |
+
+> 每个 `apps/<APP>/` 目录内还有自己的 `README.md`（架构图、数据流、接口契约、扩展指南），
+> 例如 [apps/hello_world/README.md](apps/hello_world/README.md)、[apps/bt_speaker/README.md](apps/bt_speaker/README.md)。
 
 ## 说明：LVGL 为何 vendor 而非 submodule
 
